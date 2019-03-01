@@ -1,11 +1,19 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const app = express();
 
 const authRoutes = require('./api/routes/auth');
 const movieRoutes = require('./api/routes/movie');
 const profileRoutes = require('./api/routes/profile');
+
+mongoose.connect('mongodb+srv://handeebrar:'+
+                    process.env.MONGO_ATLAS_PV+ 
+                    '@cluster0-cy293.gcp.mongodb.net/test?retryWrites=true', 
+                    {
+                        useMongoClient: true 
+                    });
 
 app.use(morgan('dev'));
 //Only support simple bodies for URL encoded data
