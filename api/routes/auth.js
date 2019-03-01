@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+//Handle incoming POST requests to /auth
 router.post('/signup', (req, res, next) => {
     res.status(200).json({
         message: 'Sign up page.'
