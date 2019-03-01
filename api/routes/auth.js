@@ -3,9 +3,7 @@ const router = express.Router();
 
 //Handle incoming POST requests to /auth
 router.post('/signup', (req, res, next) => {
-    res.status(200).json({
-        message: 'Sign up page.'
-    });
+    res.end(JSON.stringify(req.body));
 });
 
 router.get('/signin', (req, res, next) => {

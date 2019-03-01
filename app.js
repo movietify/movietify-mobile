@@ -1,13 +1,17 @@
 const express = require('express');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 const app = express();
-const bod
 
 const authRoutes = require('./api/routes/auth');
 const movieRoutes = require('./api/routes/movie');
 const profileRoutes = require('./api/routes/profile');
 
 app.use(morgan('dev'));
+//Only support simple bodies for URL encoded data
+app.use(bodyParser.urlencoded({extended: false}));
+//Extract json data for easily readable to us
+app.use(bodyParser.json());
 
 // Routes which should handle request
 app.use('/auth', authRoutes);
