@@ -9,13 +9,8 @@ router.get('/category/:name', (req, res, next) => {
     res.send(req.params.name + ' category.');
 });
 
-router.post('/list/add/:userID/:movieID/:listID', (req, res, next) => {
-    res.status(200).json({
-        message: "Add movie in a list.",
-        user_id: req.params.userID,
-        movie_id: req.params.movieID,
-        list_id: req.params.listID
-    });
+router.post('/list/add', (req, res, next) => {
+    res.end(JSON.stringify(req.body));
 });
 
 router.delete('/list/delete/:userID/:movieID/:listID',function(req, res, next){
@@ -35,20 +30,12 @@ router.get('/details/:movieID',function(req, res, next){
     res.send('The details of the movie with' + req.params.movieID + 'id.');
 });
 
-router.post('/list/create/:userID/:listName',function(req, res, next){
-    res.status(200).json({
-        message: "Create list.",
-        user_id: req.params.userID,
-        list_name: req.params.listName
-    });
+router.post('/list/create',function(req, res, next){
+    res.end(JSON.stringify(req.body));
 });
 
-router.post('/list/favorite/add/:userID/:listID',function(req, res, next){
-    res.status(200).json({
-        message: "Add list in favorite.",
-        user_id: req.params.userID,
-        list_id: req.params.listID
-    });
+router.post('/list/favorite/add',function(req, res, next){
+    res.end(JSON.stringify(req.body));
 });
 
 module.exports = router;

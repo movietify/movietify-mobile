@@ -9,11 +9,8 @@ router.get('/list/all/:userID',function(req, res, next){
     res.send(req.params.userID + ' user\'s all song lists.');
 });
 
-router.put('/update/:userID',function(req, res, next){
-    res.status(200).json({
-        message: "Update user profile.",
-        user_id: req.params.userID
-    });
+router.put('/update',function(req, res, next){
+    res.end(JSON.stringify(req.body));
 });
 
 module.exports = router;
