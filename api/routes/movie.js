@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
+const Movies = require('../models/movies');
+const List = require('../models/list');
 
 router.get('/all/:userID', (req, res, next) => {
     res.send('All movies and '+ req.params.userID +' is logged in.');
@@ -31,6 +34,16 @@ router.get('/details/:movieID',function(req, res, next){
 });
 
 router.post('/list/create',function(req, res, next){
+    const list = new List({
+        _id: new mongoose.Types.ObjectId(),
+        name: req.body.name,
+        user_id: req.body.user_id,
+        movie_id: req.body.movie_id
+    });
+    list .save().then(result => {
+        console.log(result);
+    })
+    .catch(err => console.log(err));
     res.end(JSON.stringify(req.body));
 });
 
