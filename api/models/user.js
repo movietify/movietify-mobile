@@ -8,8 +8,7 @@ const userSchema = mongoose.Schema ({
     name: String,
     picture: String,
     city: String,
-    country: String,
-    list_id: mongoose.Schema.Types.ObjectId
+    country: String
 });
 
 module.exports = mongoose.model('User', userSchema);

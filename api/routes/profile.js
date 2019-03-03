@@ -10,19 +10,14 @@ router.get('/info/:userID',function(req, res, next){
 router.get('/list/all/:userID',function(req, res, next){
     const id = req.params.userID;
 
-    List.find({"user_id": id}).then(function (list) {
-        res.send(list);}
-    );
-    /*List.find(id)
+    List.find({"user_id": id})
         .exec()
-        .then(doc => {
-            console.log(doc);
-            res.status(200).json(doc);
+        .then(function (list) {
+            res.send(list);
         })
         .catch(err => {
-            console.log(err);
-            res.status(500).json({error : err});
-        });*/
+            res.status(500).json({error : "Hata"});
+        });
 });
 
 router.put('/update',function(req, res, next){
