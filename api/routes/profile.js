@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const List = require('../models/list');
+const checkAuth = require('../middleware/check-auth');
 
-router.get('/info/:userID',function(req, res, next){
+router.get('/info/:userID', checkAuth, function(req, res, next){
     res.send(req.params.userID + ' user profile info.');
 });
 
-router.get('/list/all/:userID',function(req, res, next){
+router.get('/list/all/:userID', checkAuth, function(req, res, next){
     const id = req.params.userID;
 
     List.find({"user_id": id})
@@ -20,7 +21,7 @@ router.get('/list/all/:userID',function(req, res, next){
         });
 });
 
-router.put('/update',function(req, res, next){
+router.put('/update', checkAuth, function(req, res, next){
     res.end(JSON.stringify(req.body));
 });
 
