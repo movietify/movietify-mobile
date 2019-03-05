@@ -1,5 +1,6 @@
 {
     "env": {
-        "MONGO_ATLAS_PV": "qwerty_2019"
+        "MONGO_ATLAS_PV": "qwerty_2019",
+        "JWT_KEY": "secret"
     }
 }
