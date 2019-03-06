@@ -12,7 +12,7 @@ router.get('/info/:userID', checkAuth, function(req, res, next){
             res.send(users);
         })
         .catch(err => {
-            res.status(500).json({error : "Hata"});
+            res.status(500).json({error : "Error"});
         });
 });
 
@@ -25,18 +25,21 @@ router.get('/list/all/:userID', checkAuth, function(req, res, next){
             res.send(list);
         })
         .catch(err => {
-            res.status(500).json({error : "Hata"});
+            res.status(500).json({error : "Error"});
         });
 });
 
 router.put('/update/:userID', checkAuth, function(req, res, next){
     User.findByIdAndUpdate({_id: req.params.userID}, req.body)
-    .then(function(){
-        User.findOne({_id: req.params.userID})
-        .then(function(users){
-            res.send(users);
+        .then(function(){
+            User.findOne({_id: req.params.userID})
+                .then(function(users){
+                    res.send(users);
+                });
+        })
+        .catch(err => {
+            res.status(500).json({error : "Error"});
         });
-    });
 });
 
 module.exports = router;
