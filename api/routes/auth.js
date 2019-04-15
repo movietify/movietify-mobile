@@ -91,8 +91,4 @@ router.post("/signin", (req, res, next) => {
       });
   });
 
-router.get('/logout',function(req, res, next){
-    res.send('Good bye !');
-});
-
 module.exports = router;
