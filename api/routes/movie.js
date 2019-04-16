@@ -5,12 +5,41 @@ const Movies = require('../models/movies');
 const List = require('../models/list');
 const checkAuth = require('../middleware/check-auth');
 
-router.get('/all/:userID', checkAuth, (req, res, next) => {
-    res.send('All movies and '+ req.params.userID +' is logged in.');
+router.get('/all/:userID', (req, res, next) => {
+    /*const id = req.params.userID;
+
+    Movies.find()
+    .exec()
+    .then(function (movie) {
+        res.send(movie);
+        console.log("Movies: ********"+movie)
+    })
+    .catch(err => {
+        res.status(500).json({error : "Error"});
+    });
+    
+    List.find({"user_id": id})
+    .exec()
+    .then(function (list) {
+        console.log("List: ********"+list)
+        res.send(list);
+    })
+    .catch(err => {
+        res.status(500).json({error : "Error"});
+    });*/
 });
 
-router.get('/category/:name', checkAuth, (req, res, next) => {
-    res.send(req.params.name + ' category.');
+router.get('/category/:name', (req, res, next) => {
+    const category = req.params.name;
+
+    Movies.find({"genre": { $regex:  category, $options: 'gi'}})
+    .exec()
+    .then(function (movie) {
+        res.send(movie);
+    })
+    .catch(err => {
+        res.status(500).json({error : "Error"});
+    });
 });
 
 router.post('/list/add', checkAuth, (req, res, next) => {
@@ -38,8 +67,7 @@ router.post('/list/create', checkAuth, function(req, res, next){
     const list = new List({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
-        user_id: req.body.user_id,
-        movie_id: req.body.movie_id
+        user_id: req.body.user_id
     });
     list .save().then(result => {
         console.log(result);
