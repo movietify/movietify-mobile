@@ -4,7 +4,7 @@ const List = require('../models/list');
 const User = require('../models/user');
 const checkAuth = require('../middleware/check-auth');
 
-router.get('/info/:userID', checkAuth, function(req, res, next){
+router.get('/info/:userID', function(req, res, next){
 
     User.find({"_id": req.params.userID})
         .exec()
@@ -16,7 +16,7 @@ router.get('/info/:userID', checkAuth, function(req, res, next){
         });
 });
 
-router.get('/list/all/:userID', checkAuth, function(req, res, next){
+router.get('/list/all/:userID', function(req, res, next){
     const id = req.params.userID;
 
     List.find({"user_id": id})
@@ -29,7 +29,7 @@ router.get('/list/all/:userID', checkAuth, function(req, res, next){
         });
 });
 
-router.put('/update/:userID', checkAuth, function(req, res, next){
+router.put('/update/:userID', function(req, res, next){
     User.findByIdAndUpdate({_id: req.params.userID}, req.body)
         .then(function(){
             User.findOne({_id: req.params.userID})
