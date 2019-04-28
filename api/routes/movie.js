@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Movies = require('../models/movies');
 const List = require('../models/list');
+//const Favorites = require('../models/favorites');
 const checkAuth = require('../middleware/check-auth');
 
 router.get('/all/:userID', (req, res, next) => {
@@ -76,8 +77,17 @@ router.post('/list/create', checkAuth, function(req, res, next){
     res.end(JSON.stringify(req.body));
 });
 
-router.post('/list/favorite/add', checkAuth, function(req, res, next){
-    res.end(JSON.stringify(req.body));
+router.post('/list/favorite/add', function(req, res, next){
+    /*const favorites = new Favorites({
+        _id: new mongoose.Types.ObjectId(),
+        users_ids: [ req.body.user_id ] ,
+        lists_ids: [ req.body.list_id ]
+    });
+    favorites.save().then(result => {
+        console.log(result);
+    })
+    .catch(err => console.log(err));
+    res.end(JSON.stringify(req.body));*/
 });
 
 module.exports = router;
