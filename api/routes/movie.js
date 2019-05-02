@@ -30,7 +30,7 @@ router.get('/category/:name', (req, res, next) => {
     });
 });
 
-router.post('/list/add', checkAuth, (req, res, next) => {
+router.post('/list/add', (req, res, next) => {
     res.end(JSON.stringify(req.body));
 });
 
