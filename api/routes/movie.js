@@ -30,8 +30,19 @@ router.get('/category/:name', (req, res, next) => {
     });
 });
 
-router.post('/list/add', (req, res, next) => {
-    res.end(JSON.stringify(req.body));
+router.put('/list/add/:userID/:movieID/:listID', (req, res, next) => {
+    const user_id = req.params.userID;
+    const list_id = req.params.listID;
+    const movie_id = req.params.movieID;
+    
+    List.findOneAndUpdate({"_id": list_id, "user_id": user_id}, {$push : {"movies_ids" : movie_id}})
+    .exec()
+    .then(function (list) {
+        res.send({state : "True"});
+    })
+    .catch(err => {
+        res.status(500).json({error : "Error"});
+    });
 });
 
 router.delete('/list/delete/:userID/:movieID/:listID', checkAuth, function(req, res, next){
@@ -51,7 +62,7 @@ router.get('/details/:movieID', checkAuth, function(req, res, next){
     res.send('The details of the movie with' + req.params.movieID + 'id.');
 });
 
-router.post('/list/create', checkAuth, function(req, res, next){
+router.post('/list/create', function(req, res, next){
     const list = new List({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
