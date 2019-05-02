@@ -34,11 +34,11 @@ router.put('/list/add/:userID/:movieID/:listID', (req, res, next) => {
     const user_id = req.params.userID;
     const list_id = req.params.listID;
     const movie_id = req.params.movieID;
-    
+
     List.findOneAndUpdate({"_id": list_id, "user_id": user_id}, {$push : {"movies_ids" : movie_id}})
     .exec()
     .then(function (list) {
-        res.send({state : "True"});
+        res.send(list);
     })
     .catch(err => {
         res.status(500).json({error : "Error"});
@@ -75,8 +75,18 @@ router.post('/list/create', function(req, res, next){
     res.end(JSON.stringify(req.body));
 });
 
-router.post('/list/favorite/add', checkAuth, function(req, res, next){
-    res.end(JSON.stringify(req.body));
+router.put('/list/favorite/add/:userID/:listID', function(req, res, next){
+    const user_id = req.params.userID;
+    const list_id = req.params.listID;
+    
+    List.findOneAndUpdate({"_id": list_id}, {$push : {"followers_ids" : user_id}})
+    .exec()
+    .then(function (list) {
+        res.send({state : "True"});
+    })
+    .catch(err => {
+        res.status(500).json({error : "Error"});
+    });
 });
 
 module.exports = router;
