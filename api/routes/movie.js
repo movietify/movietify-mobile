@@ -5,28 +5,16 @@ const Movies = require('../models/movies');
 const List = require('../models/list');
 const checkAuth = require('../middleware/check-auth');
 
-router.get('/all/:userID', (req, res, next) => {
-    /*const id = req.params.userID;
+router.get('/all', (req, res, next) => {
 
     Movies.find()
     .exec()
     .then(function (movie) {
         res.send(movie);
-        console.log("Movies: ********"+movie)
     })
     .catch(err => {
         res.status(500).json({error : "Error"});
     });
-    
-    List.find({"user_id": id})
-    .exec()
-    .then(function (list) {
-        console.log("List: ********"+list)
-        res.send(list);
-    })
-    .catch(err => {
-        res.status(500).json({error : "Error"});
-    });*/
 });
 
 router.get('/category/:name', (req, res, next) => {
