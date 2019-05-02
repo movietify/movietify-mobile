@@ -54,8 +54,17 @@ router.delete('/list/delete/:userID/:movieID/:listID', checkAuth, function(req, 
     });
 });
 
-router.get('/search/:word', checkAuth, function(req, res, next){
-    res.send('Search '+ req.params.word + ' movie or list');
+router.get('/search/:word', function(req, res, next){
+    const word = req.params.word;
+
+    Movies.find({"title": { $regex:  word, $options: 'gi'}})
+    .exec()
+    .then(function (movie) {
+        res.send(movie);
+    })
+    .catch(err => {
+        res.status(500).json({error : "Error"});
+    });
 });
 
 router.get('/details/:movieID', checkAuth, function(req, res, next){
