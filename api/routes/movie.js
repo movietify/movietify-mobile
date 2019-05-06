@@ -67,10 +67,6 @@ router.get('/search/:word', function(req, res, next){
     });
 });
 
-router.get('/details/:movieID', checkAuth, function(req, res, next){
-    res.send('The details of the movie with' + req.params.movieID + 'id.');
-});
-
 router.post('/list/create', function(req, res, next){
     const list = new List({
         _id: new mongoose.Types.ObjectId(),
