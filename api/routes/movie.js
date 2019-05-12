@@ -73,8 +73,17 @@ router.get('/search/:word', function(req, res, next){
     });
 });
 
-router.get('/details/:movieID', checkAuth, function(req, res, next){
-    res.send('The details of the movie with' + req.params.movieID + 'id.');
+router.get('/details/:movieID', function(req, res, next){
+    const movie_id = req.params.movieID;
+
+    Movies.find({"_id": movie_id})
+    .exec()
+    .then(function (movie) {
+        res.send(movie);
+    })
+    .catch(err => {
+        res.status(500).json({error : "Error"});
+    });
 });
 
 router.post('/list/create', function(req, res, next){
