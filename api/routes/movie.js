@@ -98,4 +98,18 @@ router.put('/list/favorite/add/:userID/:listID', function(req, res, next){
     });
 });
 
+router.put('/list/favorite/delete/:userID/:listID', function(req, res, next){
+    const user_id = req.params.userID;
+    const list_id = req.params.listID;
+    
+    List.findOneAndUpdate({"_id": list_id}, {$pull : {"followers_ids" : user_id}})
+    .exec()
+    .then(function (list) {
+        res.send({state : "True"});
+    })
+    .catch(err => {
+        res.status(500).json({error : "Error"});
+    });
+});
+
 module.exports = router;
