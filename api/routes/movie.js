@@ -45,12 +45,18 @@ router.put('/list/add/:userID/:movieID/:listID', (req, res, next) => {
     });
 });
 
-router.delete('/list/delete/:userID/:movieID/:listID', checkAuth, function(req, res, next){
-    res.status(200).json({
-        message: "Delete list.",
-        user_id: req.params.userID,
-        movie_id: req.params.movieID,
-        list_id: req.params.listID
+router.put('/list/delete/:userID/:movieID/:listID', function(req, res, next){
+    const user_id = req.params.userID;
+    const list_id = req.params.listID;
+    const movie_id = req.params.movieID;
+
+    List.findOneAndUpdate({"_id": list_id, "user_id": user_id}, {$pull : {"movies_ids" : movie_id}})
+    .exec()
+    .then(function (list) {
+        res.send(list);
+    })
+    .catch(err => {
+        res.status(500).json({error : "Error"});
     });
 });
 
