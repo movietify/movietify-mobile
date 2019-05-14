@@ -30,12 +30,12 @@ router.get('/category/:name', (req, res, next) => {
     });
 });
 
-router.put('/list/add/:userID/:movieID/:listID', (req, res, next) => {
+router.put('/list/add/:userID/:movieName/:listID', (req, res, next) => {
     const user_id = req.params.userID;
     const list_id = req.params.listID;
-    const movie_id = req.params.movieID;
+    const movie_name = req.params.movieName;
 
-    List.findOneAndUpdate({"_id": list_id, "user_id": user_id}, {$push : {"movies_ids" : movie_id}})
+    List.findOneAndUpdate({"_id": list_id, "user_id": user_id}, {$push : {"movies_ids" : movie_name}})
     .exec()
     .then(function (list) {
         res.send(list);
