@@ -29,6 +29,21 @@ router.get('/list/all/:userID', function(req, res, next){
         });
 });
 
+router.get('/list/details/:listID', function(req, res, next){
+    const id = req.params.listID;
+    const movies = [];
+
+    List.find({"_id": id},{"movies_ids":1})
+        .exec()
+        .then(function (list) {
+            movies.push(list[0]["movies_ids"]);
+            res.send(movies);
+        })
+        .catch(err => {
+            res.status(500).json({error : "Error"});
+        });
+});
+
 router.put('/update/:userID', function(req, res, next){
     User.findByIdAndUpdate({_id: req.params.userID}, req.body)
         .then(function(){
